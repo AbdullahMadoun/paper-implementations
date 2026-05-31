@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+env/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data & Models (too large for git — regenerate from notebooks)
+*.pt
+*.pth
+*.bin
+*.h5
+*.pkl
+*.safetensors
+data/
+models/
+oxford-iiit-pet/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Environment
+.env
+*.log
