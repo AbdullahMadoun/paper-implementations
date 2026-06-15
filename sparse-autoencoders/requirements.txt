@@ -1,0 +1,9 @@
+transformers
+datasets
+safetensors
+tqdm
+torch
+matplotlib
+seaborn
+pandas
+numpy

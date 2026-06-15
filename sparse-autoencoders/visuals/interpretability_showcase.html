@@ -1,0 +1,641 @@
+<div style='font-family: Arial, sans-serif; max-width: 900px; margin: 0 auto; padding: 30px; background: #f9fafb; color: #333333; border-radius: 15px; border: 1px solid #e0e0e0;'><div style='text-align: center; margin-bottom: 40px;'><h1 style='color: #1a73e8; margin-bottom: 10px; font-size: 2.2em; letter-spacing: 1px;'>Reverse-Engineering GPT-2</h1><p style='color: #5f6368; font-size: 1.1em; max-width: 700px; margin: 0 auto;'>A heavily annotated breakdown of the most fascinating features discovered by the Sparse Autoencoder.</p></div><div style='margin-bottom: 40px; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e0e0e0;'><div style='background: #f8f9fa; padding: 20px; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center;'><h2 style='margin: 0; color: #333333; font-size: 1.6em;'>Feature <span style='color: #1a73e8;'>#1505</span> — The 'Honored / Appreciated' Detector</h2><span style='background: #e8f0fe; color: #1a73e8; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9em;'>Core: JOY</span></div><div style='padding: 20px; background: #ffffff; border-bottom: 1px solid #f0f0f0;'><h4 style='margin: 0 0 10px 0; color: #1a73e8; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;'>Analysis:</h4><p style='margin: 0; color: #444; font-size: 1.1em; line-height: 1.5;'>Fires strongly on expressions of receiving positive social feedback or feeling grateful. Intriguingly, it also weakly fires for being 'pissed off' and 'aggravated'—suggesting it might be a general 'Reaction to External Social Feedback' circuit.</p></div><div style='padding: 10px 20px 20px 20px; background: #fafafa;'>
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 4.04</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel extremely <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>honoured</span> to have received such a <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>prestigious</span> <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>award</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.89</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i was truly surprised and feel quite <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>honored</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">ANGER</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.77</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel pissed off and angry</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.69</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel very <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>honoured</span> to have been asked</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">ANGER</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.29</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel more aggravated and annoyed by their visits</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.26</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel so contented with my job</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.07</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i do feel <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>proud</span> and happy and also very <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>grateful</span> to all who read me</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.03</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>honored</span> to receive the grassroots preservation <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>award</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">LOVE</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 2.97</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>cared</span> for and <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>accepted</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">LOVE</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 2.96</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>affectionate</span> toward him</div>
+            </div>
+        </div></div><div style='margin-bottom: 40px; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e0e0e0;'><div style='background: #f8f9fa; padding: 20px; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center;'><h2 style='margin: 0; color: #333333; font-size: 1.6em;'>Feature <span style='color: #1a73e8;'>#2178</span> — The 'Frantic / Anxious' Detector</h2><span style='background: #e8f0fe; color: #1a73e8; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9em;'>Core: SADNESS & FEAR</span></div><div style='padding: 20px; background: #ffffff; border-bottom: 1px solid #f0f0f0;'><h4 style='margin: 0 0 10px 0; color: #1a73e8; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;'>Analysis:</h4><p style='margin: 0; color: #444; font-size: 1.1em; line-height: 1.5;'>A classic example of feature entanglement. To GPT-2, the distress of sadness and the panic of fear share the exact same neural pathway. This feature perfectly isolates high-arousal distress.</p></div><div style='padding: 10px 20px 20px 20px; background: #fafafa;'>
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">FEAR</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 395.80</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>alarmed</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 382.07</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">im feeling energetic</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">FEAR</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 381.04</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">id feel <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>frantic</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">FEAR</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 299.19</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>scared</span> <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>anxious</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">FEAR</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 298.54</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i still feel <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>nervous</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SADNESS</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 296.81</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i to feel <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>defeated</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SADNESS</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 296.64</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i just feel <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>troubled</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">FEAR</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 295.03</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i remember feeling <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>nervous</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">FEAR</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 294.64</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>uncomfortable</span> here</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">FEAR</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 293.84</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i was feeling <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>frantic</span></div>
+            </div>
+        </div></div><div style='margin-bottom: 40px; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e0e0e0;'><div style='background: #f8f9fa; padding: 20px; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center;'><h2 style='margin: 0; color: #333333; font-size: 1.6em;'>Feature <span style='color: #1a73e8;'>#770</span> — Redundant Circuit (Anxious/Defeated)</h2><span style='background: #e8f0fe; color: #1a73e8; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9em;'>Core: FEAR</span></div><div style='padding: 20px; background: #ffffff; border-bottom: 1px solid #f0f0f0;'><h4 style='margin: 0 0 10px 0; color: #1a73e8; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;'>Analysis:</h4><p style='margin: 0; color: #444; font-size: 1.1em; line-height: 1.5;'>Notice how this feature activates on the EXACT same sentences as #2178. This is common in SAEs: multiple features often learn slightly different 'flavors' of the exact same concept.</p></div><div style='padding: 10px 20px 20px 20px; background: #fafafa;'>
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">FEAR</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 279.59</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>alarmed</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">FEAR</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 276.93</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">id feel <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>frantic</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 275.66</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">im feeling energetic</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">FEAR</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 215.58</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i was feeling <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>frantic</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 213.40</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i would feel productive</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">FEAR</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 213.24</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i still feel <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>nervous</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SADNESS</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 212.91</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i to feel <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>defeated</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 212.49</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel really <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>inspired</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SADNESS</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 212.41</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>depressed</span> again</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 212.39</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel more <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>creative</span></div>
+            </div>
+        </div></div><div style='margin-bottom: 40px; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e0e0e0;'><div style='background: #f8f9fa; padding: 20px; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center;'><h2 style='margin: 0; color: #333333; font-size: 1.6em;'>Feature <span style='color: #1a73e8;'>#1546</span> — The 'Complex Social Observation' Detector</h2><span style='background: #e8f0fe; color: #1a73e8; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9em;'>Core: LOVE & SADNESS</span></div><div style='padding: 20px; background: #ffffff; border-bottom: 1px solid #f0f0f0;'><h4 style='margin: 0 0 10px 0; color: #1a73e8; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;'>Analysis:</h4><p style='margin: 0; color: #444; font-size: 1.1em; line-height: 1.5;'>This feature is fascinating. It doesn't detect a simple emotion; it detects multi-clause sentences where the speaker is observing or judging societal groups or complex human behaviors (e.g. <i>'us humans', 'sick people', 'religious people', 'lifestyles'</i>).</p></div><div style='padding: 10px 20px 20px 20px; background: #fafafa;'>
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SADNESS</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.84</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i will <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>admit</span> with the joy of cooking there are also times where you feel defeated</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SADNESS</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.63</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel like we are <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>doomed</span> us <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>humans</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SURPRISE</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.56</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel shocked and sad at the fact that there are so many <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>sick</span> <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>people</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SADNESS</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.47</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel there is no excuse for lame invitations</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.37</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel comfortable here there was a huge niche market waiting to be explored</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SADNESS</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.20</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">im amazed how many <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>men</span> say they feel unloved if the house is messy and they have to fix their own dinner</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">LOVE</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.11</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i always feel sympathetic for those that do as well because life can be really hard on you sometimes when you do have alot of pride</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SADNESS</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.10</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i appreciate how clean their <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>lifestyles</span> are even though i <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>admit</span> there were a few moments where the complete aversion to substances sex made me feel a little repressed</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">LOVE</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 2.97</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">im sad if some <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>people</span> are unhappy about the flag for <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>religious</span> reasons but i know many <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>religious</span> <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>people</span> who do not feel it goes against their <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>faith</span> and they are very <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>supportive</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 2.96</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i know she shes the only one who provides income to my <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>family</span> right now but it feels like shes putting it up in our face that shes supporting us</div>
+            </div>
+        </div></div><div style='margin-bottom: 40px; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e0e0e0;'><div style='background: #f8f9fa; padding: 20px; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center;'><h2 style='margin: 0; color: #333333; font-size: 1.6em;'>Feature <span style='color: #1a73e8;'>#1938</span> — The 'Interpersonal Dialogue' Detector</h2><span style='background: #e8f0fe; color: #1a73e8; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9em;'>Core: SURPRISE & LOVE</span></div><div style='padding: 20px; background: #ffffff; border-bottom: 1px solid #f0f0f0;'><h4 style='margin: 0 0 10px 0; color: #1a73e8; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;'>Analysis:</h4><p style='margin: 0; color: #444; font-size: 1.1em; line-height: 1.5;'>A purely syntactic/narrative feature! It fires heavily on texts that involve talking to someone else or recounting a conversation.</p></div><div style='padding: 10px 20px 20px 20px; background: #fafafa;'>
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 4.83</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i was feeling playful that day and <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>replied</span> with a lighthearted bit of <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>banter</span> unwittingly replacing her question mark with a solid check mark my voice was just right for the funny yet informational for dummies series</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SURPRISE</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 4.20</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>replied</span> feeling strange at giving the <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>orders</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">ANGER</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.99</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i was <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>asked</span> to toast with champagne at the death bed and i remember feeling disgusted</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SURPRISE</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.87</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i got home and <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>told</span> peter how i was feeling he wasnt shocked at all by what i was telling him</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">LOVE</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.86</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i smiled at him feeling his longing and <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>said</span> maybe later buddy but i have to make lunch now</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">ANGER</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.72</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i was angry at my boyfriend who had promised to come to see me but did not because he spent the evening with his pals</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">LOVE</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.67</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i could almost feel her gentle touch in the moonbeam she sent to shine over me he added touching his face dreamily</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">FEAR</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.59</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i started feeling uncomfortable around my straight male friends particularly after one of them drunkenly came on to me grabbing at my waist while he attempted to <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>murmur</span> sweet nothings in my ear at a party that same week</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SURPRISE</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.49</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i started feeling a little funny but this was not anxiety but at the time i didnt know so i started to tell my brother man i dont feel good and he <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>said</span> whats wrong i <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>said</span> i dont know but u better drive so i pulled over and let him drive</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">FEAR</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.46</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i was trying to <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>demonstrate</span> that i understood what she was feeling but she was very alarmed and worried for my safety</div>
+            </div>
+        </div></div><div style='margin-bottom: 40px; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e0e0e0;'><div style='background: #f8f9fa; padding: 20px; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center;'><h2 style='margin: 0; color: #333333; font-size: 1.6em;'>Feature <span style='color: #1a73e8;'>#2230</span> — The 'Compound Adjective' Detector</h2><span style='background: #e8f0fe; color: #1a73e8; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9em;'>Core: ANGER</span></div><div style='padding: 20px; background: #ffffff; border-bottom: 1px solid #f0f0f0;'><h4 style='margin: 0 0 10px 0; color: #1a73e8; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;'>Analysis:</h4><p style='margin: 0; color: #444; font-size: 1.1em; line-height: 1.5;'>Look closely at the grammar here. This feature almost exclusively fires on texts that list TWO contrasting or complementary adjectives connected by 'and' (<i>crampy and cranky, jaded and bored, gloomy and confused, grounded and centered</i>).</p></div><div style='padding: 10px 20px 20px 20px; background: #fafafa;'>
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 4.84</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i am feeling energized <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>productive and creative</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">ANGER</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 4.38</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i am feeling <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>crampy and cranky</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">ANGER</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 4.29</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>pissed off and angry</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SADNESS</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 4.20</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel so <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>jaded and bored</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 4.16</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>complacent and satisfied</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SADNESS</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.95</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel extremely <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>gloomy and confused</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">FEAR</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.92</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel less frightened and more <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>grounded and centered</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">ANGER</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.91</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">im feeling cooped up and <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>impatient and annoyingly</span> bored</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SADNESS</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.87</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel much more energized than on a gloomy rainy autumn day</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.80</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>bouncy and twitchy</span> all of a sudden</div>
+            </div>
+        </div></div><div style='margin-bottom: 40px; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e0e0e0;'><div style='background: #f8f9fa; padding: 20px; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center;'><h2 style='margin: 0; color: #333333; font-size: 1.6em;'>Feature <span style='color: #1a73e8;'>#2394</span> — The 'Deep Connection / With You' Detector</h2><span style='background: #e8f0fe; color: #1a73e8; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9em;'>Core: LOVE</span></div><div style='padding: 20px; background: #ffffff; border-bottom: 1px solid #f0f0f0;'><h4 style='margin: 0 0 10px 0; color: #1a73e8; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;'>Analysis:</h4><p style='margin: 0; color: #444; font-size: 1.1em; line-height: 1.5;'>Fires strongly on profound relationship-focused sentences, especially those directed at a specific 'you' (<i>with you, without you, by you</i>).</p></div><div style='padding: 10px 20px 20px 20px; background: #fafafa;'>
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SADNESS</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 4.72</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel so extremely <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>disappointed by you</span> you took me for granted</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SADNESS</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.54</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel so unloved <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>without you</span> next to me but when im <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>with you</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">LOVE</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.19</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i then feel your tender touch as you enfold me <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>with his love</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.18</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i didnt react with the way that i really feel im ecstatic for your <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>marriage to</span> tonks</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.18</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i continue to feel so content about <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>our decision</span> to move here</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.15</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel the presence of the divine <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>with you</span> when you are buried inside me smiling down at me your sweat dripping into my eager mouth</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SADNESS</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.15</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel lost <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>without you</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.10</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel very honored in how much he has shared and expressed with me and that he <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>trusts me</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.09</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel so blessed to be able to share it <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>with you</span> all</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">FEAR</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.07</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i notice how different this question is from why i am feeling so agitated</div>
+            </div>
+        </div></div><div style='margin-bottom: 40px; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e0e0e0;'><div style='background: #f8f9fa; padding: 20px; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center;'><h2 style='margin: 0; color: #333333; font-size: 1.6em;'>Feature <span style='color: #1a73e8;'>#1566</span> — The 'Things / Anything' Syntactic Detector</h2><span style='background: #e8f0fe; color: #1a73e8; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9em;'>Core: ANGER & SURPRISE</span></div><div style='padding: 20px; background: #ffffff; border-bottom: 1px solid #f0f0f0;'><h4 style='margin: 0 0 10px 0; color: #1a73e8; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;'>Analysis:</h4><p style='margin: 0; color: #444; font-size: 1.1em; line-height: 1.5;'>The ultimate plot twist! This has nothing to do with emotion. It is a linguistic detector for indefinite pronouns. It fires whenever the text contains words like <i>anything, everything, something, or things</i>.</p></div><div style='padding: 10px 20px 20px 20px; background: #fafafa;'>
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SADNESS</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 4.96</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i still feel more than <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>anything</span> else humiliated whenever i think of <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>everything</span> that s happened</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SURPRISE</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 4.45</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel so weird and scattered with all wonders about a million different <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>things</span></div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">FEAR</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 4.33</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">im not feeling <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>anything</span> suspicious really</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 4.04</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel however i have <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>something</span> far more precious than feelings</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">JOY</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 4.04</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel should be determined by me and my actions and nobody or <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>nothing</span> else</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SADNESS</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 4.03</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i cant feel <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>anything</span> like they said why does <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>everything</span> always hurt so bad</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SADNESS</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.87</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel numb i dont experience <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>anything</span> because of the numbness and of me just always feels <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>something</span> is going to go wrong</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">SADNESS</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.59</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i am feeling very touch deprived with all that has been happening</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">ANGER</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.57</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel a bit stressed even though all the <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>things</span> i have going on are fun</div>
+            </div>
+        
+            <div style="margin-top: 15px; padding: 15px; background: #ffffff; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f0f0f0;">
+                <div style="margin-bottom: 8px; display: flex; justify-content: space-between;">
+                    <span style="color: #5f6368; font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">FEAR</span>
+                    <span style="color: #1a73e8; font-weight: bold; font-family: monospace; font-size: 0.9em;">ACT: 3.53</span>
+                </div>
+                <div style="font-size: 1.15em; line-height: 1.6; color: #202124; letter-spacing: 0.2px;">i feel strange talking about less serious <span style='color: #d32f2f; font-weight: bold; background: #fce8e6; padding: 2px 4px; border-radius: 4px;'>things</span> right now like cooking</div>
+            </div>
+        </div></div></div>
