@@ -10,6 +10,7 @@ My personal sandbox for exploring AI research. The goal isn't to build the full 
 | 2 | [UMAP: Uniform Manifold Approximation and Projection (McInnes et al., 2018)](https://arxiv.org/abs/1802.03426) | [`umap/`](./umap/) | Dimension reduction via fuzzy simplicial set topology and cross-entropy optimization | ✅ Done |
 | 3 | [The Platonic Universe (Duraphe et al., 2025)](https://arxiv.org/abs/2509.19453) | [`the-platonic-universe/`](./the-platonic-universe/) | Convergence of foundation models across astronomical modalities | ✅ Done |
 | 4 | [Towards Monosemanticity (Bricken et al., 2023)](https://transformer-circuits.pub/2023/monosemantic-features) | [`sparse-autoencoders/`](./sparse-autoencoders/) | SAE implementation to resolve polysemanticity and find monosemantic features | ✅ Done |
+| 5 | [Attention Is All You Need (Vaswani et al., 2017)](https://arxiv.org/abs/1706.03762) | [`multi-gpu-transformer/`](./multi-gpu-transformer/) | From-scratch Transformer with multi-GPU DistributedDataParallel (DDP) benchmarking & roofline analysis | ✅ Done |
 
 ## 📂 Structure
 
