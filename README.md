@@ -13,6 +13,7 @@ My personal sandbox for exploring AI research. The goal isn't to build the full 
 | 5 | [Attention Is All You Need (Vaswani et al., 2017)](https://arxiv.org/abs/1706.03762) | [`multi-gpu-transformer/`](./multi-gpu-transformer/) | From-scratch Transformer with multi-GPU DistributedDataParallel (DDP) benchmarking & roofline analysis | ✅ Done |
 | 6 | [Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer (Shazeer et al., 2017)](https://arxiv.org/abs/1701.06538) | [`sparse-gather/`](./sparse-gather/) | Explored sparse vector math (`torch.sparse_coo`) and `gather` as a prerequisite for MoE | ✅ Done |
 | 7 | [Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer (Shazeer et al., 2017)](https://arxiv.org/abs/1701.06538) | [`mixture-of-experts/`](./mixture-of-experts/) | A full PyTorch implementation of the sparsely-gated MoE layer using dynamic routing masks | ✅ Done |
+| 8 | [Auto-Encoding Variational Bayes (Kingma & Welling, 2013)](https://arxiv.org/abs/1312.6114) | [`vae/`](./vae/) | Variational Autoencoder implementation and Noise Distribution Study | ✅ Done |
 
 ## 📂 Structure
 
