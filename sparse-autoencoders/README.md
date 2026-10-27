@@ -29,3 +29,5 @@ The model successfully identifies specific features that activate strongly for s
 **Key Insight:** Initially, extracting exact features mapping one-to-one per emotion was challenging. To remove any bias from the unbalanced dataset labels, a DataLoader with oversampling was implemented. The difficulty in extracting exact features per emotion is likely because GPT-2 is relatively lightweight and may not have the capacity to generalize that deeply into complex emotions.
 
 You can view the interactive results and visualizations here: [Interpretability Showcase](./visuals/interpretability_showcase.html).
+
+To browse features yourself, `feature-explorer/` serves a small dashboard: run `python -m src.server` from that folder and open http://127.0.0.1:8000.

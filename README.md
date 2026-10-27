@@ -1,8 +1,8 @@
-# 📑 Paper Experiments & Implementations
+# Paper Experiments & Implementations
 
 My personal sandbox for exploring AI research. The goal isn't to build the full paper, but to quickly code up core mechanics, test ideas, and build intuition.
 
-## 📋 Papers
+## Papers
 
 | # | Paper | Folder | Key Idea | Status |
 |---|-------|--------|----------|--------|
@@ -15,28 +15,32 @@ My personal sandbox for exploring AI research. The goal isn't to build the full 
 | 7 | [Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer (Shazeer et al., 2017)](https://arxiv.org/abs/1701.06538) | [`mixture-of-experts/`](./mixture-of-experts/) | A full PyTorch implementation of the sparsely-gated MoE layer using dynamic routing masks | ✅ Done |
 | 8 | [Auto-Encoding Variational Bayes (Kingma & Welling, 2013)](https://arxiv.org/abs/1312.6114) | [`vae/`](./vae/) | Variational Autoencoder implementation and Noise Distribution Study | ✅ Done |
 
-## 📂 Structure
+## Structure
 
 Each paper gets a standalone folder with its own notebook, README, and dependencies:
 
 ```
 paper-implementations/
-├── relative-representations/     
-│   ├── README.md                 # Context & takeaways
+├── <paper-folder>/               # one per row in the table above
+│   ├── README.md                 # Why I read it, key idea, what I built, results
 │   ├── experiment.ipynb          # Implementation & results
-│   └── requirements.txt          
-├── vision-transformer/           
-├── playground/                   # Scratchpad for learning
-└── TEMPLATE/                     # Boilerplate for new papers
+│   └── requirements.txt
+├── TEMPLATE/                     # Boilerplate for new papers
+└── playground/                   # Early drafts and one-off scripts, not cleaned up
 ```
 
-## 🤖 Authorship
+A few folders have more than the notebook: `multi-gpu-transformer/` has the
+`train_single.py` and `train_ddp.py` scripts behind the DDP speedup, and
+`sparse-autoencoders/feature-explorer/` is a small FastAPI server and dashboard for
+browsing the learned features.
+
+## Authorship
 
 I use AI heavily for boilerplate, data pipelines, and setup. To stay transparent, notebooks are tagged per-section:
 - `> ✍️ **My Work**` — The core logic, experimental design, and analysis I wrote myself.
 - `> 🤖 **AI-Assisted**` — Scaffolding generated or co-written with AI.
 
-## 🚀 Run It
+## Run It
 
 ```bash
 python -m venv .venv

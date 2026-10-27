@@ -35,3 +35,6 @@ Thumbs.db
 # Environment
 .env
 *.log
+
+# Downloaded by multi-gpu-transformer/train_*.py
+shakespeare.txt
